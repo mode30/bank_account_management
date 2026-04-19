@@ -4,10 +4,23 @@ struct BankAccount {
     account_number: String,
 }
 fn main() {
-    println!("Hello, world!");
+    let mut person_1 = BankAccount::new(
+        "benjamin".to_string(),
+        1_000_000.0,
+        "234-356-999".to_string(),
+    );
+    person_1.display_information();
+    person_1.check_balance();
+
+    // let user_query=user_query("enter amount");
+    let user_amount = atof64("enter amount").expect("cannot convert to float64 from string");
+    let withdrawn_amount = person_1.withdrawal(user_amount);
+    println!("amount remaining:{}", withdrawn_amount);
 }
 
 #[allow(dead_code)]
+#[allow(unused_variables)]
+#[allow(unused)]
 impl BankAccount {
     fn new(account_holder: String, balance: f64, account_number: String) -> Self {
         Self {
@@ -53,5 +66,24 @@ impl BankAccount {
     }
 }
 
+fn user_query() -> Result<String, String> {
+    let mut user_input = String::new();
+    std::io::stdin()
+        .read_line(&mut user_input)
+        .expect("cannot collect user input");
+    if user_input.trim().is_empty() {
+        return Err("user input cannot be empty".to_string());
+    }
 
-fn user_query()
+    Ok(user_input)
+}
+
+fn atof64(prompt:&str) -> Result<f64, String> {
+    println!("{}",prompt);
+    let buffer_entry = user_query()?;
+    let buffer_entry: f64 = buffer_entry
+        .trim()
+        .parse()
+        .expect("cannot convert string to f64");
+    Ok(buffer_entry)
+}
