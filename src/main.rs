@@ -1,9 +1,26 @@
+#[allow(dead_code)]
+#[derive(Debug)]
 struct BankAccount {
     account_holder: String,
     balance: f64,
     account_number: String,
 }
 fn main() {
+    // loop{
+        // println!("\nWhat would you like to do?");
+        // println!("1. Check Balance");
+        // println!("2. Make Deposit");
+        // println!("3. Make Withdrawal");
+        // println!("4. View Account Info");
+        // println!("5. Exit");
+        // println!("Enter your choice (1-5):");
+        // let user_entry=user_query().expect("cannot take user entry");
+        // // let user_entry:i32=user_entry.trim().parse().unwrap_or_default();
+        // match user_entry{
+        //     x=> x.check.balance(),
+
+        // }
+    // }
     let mut person_1 = BankAccount::new(
         "benjamin".to_string(),
         1_000_000.0,
@@ -16,6 +33,18 @@ fn main() {
     let user_amount = atof64("enter amount").expect("cannot convert to float64 from string");
     let withdrawn_amount = person_1.withdrawal(user_amount);
     println!("amount remaining:{}", withdrawn_amount);
+
+    println!("Enter name");
+    let account_holder = user_query().unwrap_or_default();
+    let balance =
+        atof64("enter balance amount:").expect("cannot convert user entry into balance f64");
+    println!("enter account number::");
+    let user_account_number = user_query().unwrap_or_default();
+    let account_number = user_account_number;
+    let person_2 = BankAccount::new(account_holder, balance, account_number);
+    println!("person 2:{:?}", person_2);
+
+    println!()
 }
 
 #[allow(dead_code)]
@@ -78,8 +107,8 @@ fn user_query() -> Result<String, String> {
     Ok(user_input)
 }
 
-fn atof64(prompt:&str) -> Result<f64, String> {
-    println!("{}",prompt);
+fn atof64(prompt: &str) -> Result<f64, String> {
+    println!("{}", prompt);
     let buffer_entry = user_query()?;
     let buffer_entry: f64 = buffer_entry
         .trim()
